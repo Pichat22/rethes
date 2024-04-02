@@ -16,7 +16,7 @@ jobs:
       run: |
         sed -i "s/data-commit-id=\".*\"/data-commit-id=\"${{ github.sha }}\"/g" index.html
         # Vérifier que le remplacement a été effectué correctement
-        grep -q "data-commit-id=\"${{ github.sha }}\"" contact.html && echo "ID du commit inséré avec succès." || { echo "Erreur : ID du commit non inséré."; exit 1; }
+        grep -q "data-commit-id=\"${{ github.sha }}\"" index.html && echo "ID du commit inséré avec succès." || { echo "Erreur : ID du commit non inséré."; exit 1; }
       env:
         AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
 
@@ -26,7 +26,7 @@ jobs:
         sudo apt-get install -y python3-pip
         sudo pip3 install awscli
 
-        - name: Configure AWS credentials
+    - name: Configure AWS credentials
       run: |
         aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
